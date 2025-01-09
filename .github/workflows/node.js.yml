@@ -1,0 +1,29 @@
+name: Generate Dockerfile
+
+on:
+  workflow_dispatch: # Permite execução manual do workflow
+
+jobs:
+  generate-dockerfile:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Create Dockerfile
+      run: |
+        echo 'FROM node:18' > Dockerfile
+        echo 'WORKDIR /app' >> Dockerfile
+        echo 'COPY package*.json ./' >> Dockerfile
+        echo 'RUN npm install' >> Dockerfile
+        echo 'COPY . .' >> Dockerfile
+        echo 'RUN npm run build' >> Dockerfile
+        echo 'CMD ["npm", "run", "preview"]' >> Dockerfile
+        echo 'EXPOSE 5173' >> Dockerfile
+
+    - name: Upload Dockerfile as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: Dockerfile
+        path: Dockerfile
