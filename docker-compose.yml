@@ -1,0 +1,7 @@
+services:
+  web:
+    image: jaoapedroleseux/zanolli:latest
+    container_name: zanolli
+    ports:
+      - "80:80"
+    restart: unless-stopped
