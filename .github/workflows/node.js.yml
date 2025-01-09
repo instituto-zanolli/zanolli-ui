@@ -1,7 +1,9 @@
 name: Build and Push Docker Image
 
 on:
-  workflow_dispatch
+  push:
+    branches:
+      - main
 
 jobs:
   build:
@@ -33,5 +35,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: jaoapedroleseux/zanolli:${{ github.sha }}
+          tags: jaoapedroleseux/zanolli:latest
 
